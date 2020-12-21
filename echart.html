@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.0/dist/echarts.min.js"></script>
+    <style type="text/css">
+    	.center {
+				  margin: auto;
+				  width: 50%;
+				  border: 3px solid black;
+				  padding: 10px;
+				}
+    </style>
+</head>
+<body>
+	<div class="container" style="margin-top:3rem">
+		<form>
+			<div class="form-group">
+			    <label for="exampleFormControlSelect1">Please select a student</label>
+			    <select class="form-control col-md-1" id="student">
+			      <option>Mary</option>
+			      <option>Bill</option>
+			      <option>Bob</option>
+			    </select>
+			</div>
+		</form>
+    	<div id="main" class="center" style="width: 80rem; height: 45rem; margin-top:1rem"></div>
+	</div>
+	
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+        var data = [29, 29, 21, 27];
+        var option = {
+            title: {
+                text: 'xx期托福班Mary学生成绩'
+            },
+            tooltip: {},
+		    legend: {
+		        data: ['班级均分', '初测成绩', '学后成绩']
+		    },
+		    radar: {
+		        name: {
+		            textStyle: {
+		                color: '#fff',
+		                backgroundColor: '#999',
+		                borderRadius: 3,
+		                padding: [3, 5]
+		            }
+		        },
+		        indicator: [
+		            { name: '阅读（Reading）', max: 30},
+		            { name: '听力（Listening）', max: 30},
+		            { name: '口语（Speaking）', max: 30},
+		            { name: '写作（Writing）', max: 30}
+		        ]
+		    },
+		    series: [{
+		        name: '',
+		        type: 'radar',
+		        data: [
+		        	{
+		                value: data,
+		                name: '学后成绩',
+		                label: {
+                        show: true,
+                        formatter: function(params) {
+                            return params.value;
+                        }
+                    }
+		            },
+		            {
+		                value: [25, 26, 24, 25],
+		                name: '班级均分'
+		            },
+		            {
+		                value: [24, 26, 18, 22],
+		                name: '初测成绩'
+		            }
+		            
+		        ]
+		    }]
+        };
+        myChart.setOption(option);
+
+        var select = document.getElementById('student');
+    	select.addEventListener('change',function(){
+    		var txt = "xx期托福班".concat(select.value, "学生成绩");
+    		if (select.value == "Bill") {
+    			data = [22, 24, 23, 25];
+    		} else if (select.value == "Bob") {
+    			data = [25, 23, 24, 22];
+    		} else {
+    			data = [29, 29, 21, 27];
+    		}
+    		myChart.setOption({
+    			title: {
+                text: txt
+            	},
+            			    series: [{
+		        name: '',
+		        type: 'radar',
+		        data: [
+		        	{
+		                value: data,
+		                name: '学后成绩',
+		                label: {
+                        show: true,
+                        formatter: function(params) {
+                            return params.value;
+                        }
+                    }
+		            },
+		            {
+		                value: [25, 26, 24, 25],
+		                name: '班级均分'
+		            },
+		            {
+		                value: [24, 26, 18, 22],
+		                name: '初测成绩'
+		            }
+		            
+		        ]
+		    }]
+    		}
+    		);
+		});
+    </script>
+</body>
+</html>
